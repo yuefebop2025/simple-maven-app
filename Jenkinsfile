@@ -1,12 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.6-openjdk-17'
-            args '-v /root/.m2:/root/.m2' // Optional: caches Maven dependencies
-        }
+    agent any
+
+    tools {
+        maven 'maven 3' // Ensure Maven is configured in Jenkins Global Tools Configuration
+    }
+
+    environment {
+        MAVEN_OPTS = "-Dmaven.repo.local=.m2/repository"
     }
 
     stages {
+        stage('Checkout') {
+            steps {
+                // This checks out the main branch explicitly
+                git branch: 'main', url: 'https://github.com/kingakwa/simple-maven-app.git'
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'mvn clean compile'
