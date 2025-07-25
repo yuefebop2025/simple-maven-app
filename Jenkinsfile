@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // This checks out the main branch explicitly
-                git branch: 'main', url: 'https://github.com/kingakwa/simple-maven-app.git'
+                git branch: 'main', url: 'https://github.com/yuefebop/simple-maven-app.git'
             }
         }
 
